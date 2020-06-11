@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+Route::group(
+    ['namespace' => 'Admin\V1', 'prefix' => 'admin/v1'],
+    function () {
+        Route::get('article', 'ArticleController@index');
+        Route::post('article', 'ArticleController@store');
+        Route::get('article/{id}', 'ArticleController@show');
+        Route::delete('article/{id}', 'ArticleController@destroy');
+        Route::put('article/{id}', 'ArticleController@update');
+    }
+);
